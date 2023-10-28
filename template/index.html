@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>Get Switch Info</title>
+</head>
+
+<body>
+  <button onclick="getSwitchInfo()">获取交换机信息</button>
+  <button onclick="getFlowInfo()">获取交换机流表信息</button>
+  <button onclick="getHostInfo()">获取主机信息</button>
+  <button onclick="getLinkInfo()">获取链路信息</button>
+  <br><br>
+  <button onclick="postTimeout()">下发硬超时流表</button>
+  <button onclick="postVlan()">下发vlan流表</button>
+  <button onclick="deleteFlow()">删除流表</button>
+  <br><br>
+  <textarea id="info" rows="70" cols="80"></textarea>
+  <script>
+    function getSwitchInfo() {
+      fetch('/get_switch_info')
+        .then(response => response.json())
+        .then(data => {
+          console.log(data);
+          document.getElementById('info').value = JSON.stringify(data, null, 4);
+        })
+        .catch(error => console.error(error));
+    }
+
+    function getFlowInfo() {
+      fetch('/get_flow_info')
+        .then(response => response.json())
+        .then(data => {
+          console.log(data);
+          document.getElementById('info').value = JSON.stringify(data, null, 4);
+        })
+        .catch(error => console.error(error));
+    }
+
+    function getHostInfo() {
+      fetch('/get_host_info')
+        .then(response => response.json())
+        .then(data => {
+          console.log(data);
+          document.getElementById('info').value = JSON.stringify(data, null, 4);
+        })
+        .catch(error => console.error(error));
+    }
+
+    function getLinkInfo() {
+      fetch('/get_link_info')
+        .then(response => response.json())
+        .then(data => {
+          console.log(data);
+          document.getElementById('info').value = JSON.stringify(data, null, 4);
+        })
+        .catch(error => console.error(error));
+    }
+
+    function postTimeout() {
+      fetch('/post_timeout', { method: "POST" })
+    }
+
+    function postVlan() {
+      fetch('/post_vlan', { method: "POST" })
+    }
+
+    function deleteFlow() {
+      fetch('/delete_flow', { method: "POST" })
+    }
+  </script>
+</body>
+
+</html>
